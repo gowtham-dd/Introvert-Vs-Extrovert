@@ -1,6 +1,8 @@
 from src.IntrovertVsExtrovert.constant import *
 from src.IntrovertVsExtrovert.utils.common import read_yaml,create_directories 
-from src.IntrovertVsExtrovert.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from src.IntrovertVsExtrovert.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
+
+
 class ConfigurationManager:
     def __init__(
         self,
@@ -43,5 +45,23 @@ class ConfigurationManager:
             STATUS_FILE=config.STATUS_FILE,
             train_data_path=config.train_data_path,
             original_data_path=config.original_data_path,
+            clean_train_path=config.clean_train_path,     
+            clean_org_path=config.clean_org_path,         
             all_schema=schema
+        )
+    
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+        create_directories([config.root_dir])
+
+        return DataTransformationConfig(
+            root_dir=config.root_dir,
+            train_data_path=config.train_data_path,
+            org_combined_path=config.org_combined_path,
+            x_train_path=config.x_train_path,
+            x_val_path=config.x_val_path,
+            y_train_path=config.y_train_path,
+            y_val_path=config.y_val_path,
+            ordinal_encoder_path=config.ordinal_encoder_path,
+            label_encoder_path=config.label_encoder_path
         )

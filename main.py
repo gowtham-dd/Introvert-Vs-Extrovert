@@ -1,7 +1,7 @@
 from src.IntrovertVsExtrovert import logger
 from src.IntrovertVsExtrovert.pipeline.Data_Ingestion_pipeline import DataIngestionTrainingPipeline
 from src.IntrovertVsExtrovert.pipeline.Data_Validation_pipeline import DataValidationTrainingPipeline
-# from src.IntrovertVsExtrovert.pipeline.data_transformation_pipeline import DataTransformationTrainingPipeline
+from src.IntrovertVsExtrovert.pipeline.Data_Transformation_pipeline import DataTransformationTrainingPipeline
 # from src.IntrovertVsExtrovert.pipeline.model_trainer_pipeline import ModelTrainerTrainingPipeline
 # from src.IntrovertVsExtrovert.pipeline.model_evaluation_pipeline import ModelEvaluationTrainingPipeline
 # import dagshub
@@ -28,6 +28,20 @@ STAGE_NAME="Data Validation stage"
 try:
     logger.info(f">>>> Stage {STAGE_NAME} started")
     obj=DataValidationTrainingPipeline()
+    obj.main()
+    logger.info(f">>>>> Stage {STAGE_NAME} completed")
+
+except Exception as e:
+    logger.exception(e)
+    raise e
+
+
+STAGE_NAME="Data Transformation stage"
+
+
+try:
+    logger.info(f">>>> Stage {STAGE_NAME} started")
+    obj=DataTransformationTrainingPipeline()
     obj.main()
     logger.info(f">>>>> Stage {STAGE_NAME} completed")
 

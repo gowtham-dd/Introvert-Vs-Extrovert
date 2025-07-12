@@ -50,6 +50,8 @@ class DataValidation:
             if validation_status:
                 train_df = self._check_missing_and_duplicates(train_df, "Train Data")
                 org_df = self._check_missing_and_duplicates(org_df, "Original Data")
+                train_df.to_csv(self.config.clean_train_path, index=False)
+                org_df.to_csv(self.config.clean_org_path, index=False)
 
             # Save validation result
             with open(self.config.STATUS_FILE, 'w') as f:
