@@ -34,3 +34,21 @@ class DataTransformationConfig:
     y_val_path: Path
     ordinal_encoder_path: Path
     label_encoder_path: Path
+
+
+
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    x_train_path: Path
+    y_train_path: Path
+    model_dir: Path
+    xgb_model_pattern: str
+    cat_model_pattern: str
+    ensemble_path: Path
+    # Hyper‑params & CV
+    xgb_params: dict
+    cat_params: dict
+    n_splits: int
+    n_repeats: int
+    ensemble_weights: dict

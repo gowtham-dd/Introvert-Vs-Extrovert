@@ -1,6 +1,6 @@
 from src.IntrovertVsExtrovert.constant import *
 from src.IntrovertVsExtrovert.utils.common import read_yaml,create_directories 
-from src.IntrovertVsExtrovert.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
+from src.IntrovertVsExtrovert.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
 
 
 class ConfigurationManager:
@@ -64,4 +64,29 @@ class ConfigurationManager:
             y_val_path=config.y_val_path,
             ordinal_encoder_path=config.ordinal_encoder_path,
             label_encoder_path=config.label_encoder_path
+        )
+
+
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        cfg    = self.config.model_trainer
+        xgb_p  = self.params.XGBoost
+        cat_p  = self.params.CatBoost
+        train  = self.params.training
+
+        create_directories([cfg.root_dir, cfg.model_dir])
+
+        return ModelTrainerConfig(
+            root_dir          = Path(cfg.root_dir),
+            x_train_path      = Path(cfg.x_train_path),
+            y_train_path      = Path(cfg.y_train_path),
+            model_dir         = Path(cfg.model_dir),
+            xgb_model_pattern = cfg.xgb_model_pattern,
+            cat_model_pattern = cfg.cat_model_pattern,
+            ensemble_path     = Path(cfg.ensemble_path),
+            xgb_params        = dict(xgb_p),
+            cat_params        = dict(cat_p),
+            n_splits          = train.n_splits,
+            n_repeats         = train.n_repeats,
+            ensemble_weights  = dict(train.ensemble_weights)
         )

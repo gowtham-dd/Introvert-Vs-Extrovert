@@ -26,3 +26,13 @@ data_transformation:
   y_val_path: artifacts/data_transformation/y_val.csv
   ordinal_encoder_path: artifacts/data_transformation/ordinal_encoder.pkl
   label_encoder_path: artifacts/data_transformation/label_encoder.pkl
+
+
+model_trainer:
+  root_dir: artifacts/model_training
+  x_train_path: artifacts/data_transformation/X_train.parquet
+  y_train_path: artifacts/data_transformation/y_train.csv
+  model_dir: artifacts/model_training/models     # each fold’s file ends up here
+  xgb_model_pattern: xgb_fold{fold}.bin
+  cat_model_pattern: cat_fold{fold}.cbm
+  ensemble_path: artifacts/model_training/ensemble_weights.pkl
