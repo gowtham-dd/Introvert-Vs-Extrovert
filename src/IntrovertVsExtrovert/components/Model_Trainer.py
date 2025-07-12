@@ -2,6 +2,8 @@ import os, joblib, warnings, numpy as np, pandas as pd
 import xgboost as xgb
 from catboost import CatBoostClassifier
 from pathlib import Path
+from src.IntrovertVsExtrovert import logger
+
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.metrics import log_loss, accuracy_score
 from typing import Tuple
@@ -93,4 +95,5 @@ class ModelTrainer:
 
             print("✅ Model‑training stage completed.")
         except Exception as e:
-            raise RuntimeError(f"Training failed: {e}") from e
+            logger.exception(e)
+            raise e

@@ -1,6 +1,6 @@
 from src.IntrovertVsExtrovert.constant import *
 from src.IntrovertVsExtrovert.utils.common import read_yaml,create_directories 
-from src.IntrovertVsExtrovert.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
+from src.IntrovertVsExtrovert.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig,ModelEvaluationConfig
 
 
 class ConfigurationManager:
@@ -89,4 +89,25 @@ class ConfigurationManager:
             n_splits          = train.n_splits,
             n_repeats         = train.n_repeats,
             ensemble_weights  = dict(train.ensemble_weights)
+        )
+
+
+
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        cfg   = self.config.model_evaluation
+        train = self.params.training        # has ensemble_weights
+        create_directories([cfg.root_dir])
+
+        return ModelEvaluationConfig(
+            root_dir             = Path(cfg.root_dir),
+            x_val_path           = Path(cfg.x_val_path),
+            y_val_path           = Path(cfg.y_val_path),
+            model_dir            = Path(cfg.model_dir),
+            ensemble_path        = Path(cfg.ensemble_path),
+            ordinal_encoder_path = Path(cfg.ordinal_encoder_path),
+            label_encoder_path   = Path(cfg.label_encoder_path),
+            metric_file          = Path(cfg.metric_file),
+            mlflow_uri           = cfg.mlflow_uri,
+            ensemble_weights     = dict(train.ensemble_weights)
         )

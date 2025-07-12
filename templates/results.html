@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personality Prediction Result</title>
+  <style>
+    :root {
+      --primary-clr: #6a5acd; /* slate blue */
+      --primary-dark: #5948b6;
+      --bg: #f4f7ff;
+      --card: #ffffff;
+      --text: #333;
+      --border: #ddd;
+      --introvert: #00b894;
+      --extrovert: #e17055;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: var(--primary-clr);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem 4rem;
+    }
+    h1 { margin: 0; font-size: 2.3rem; }
+    .container { max-width: 780px; margin: auto; padding: 1rem 1.25rem 3rem; }
+
+    .card {
+      background: var(--card);
+      border-radius: 10px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+      padding: 2.5rem 2rem;
+      margin-top: -120px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+    @keyframes fadeIn { from {opacity:0; transform: translateY(30px);} to {opacity:1; transform:translateY(0);} }
+
+    .result-label {
+      font-size: 1.8rem;
+      margin-bottom: 1.1rem;
+      color: var(--primary-clr);
+      font-weight: 600;
+    }
+
+    /* Bars */
+    .bar-wrapper { margin: 1.2rem 0; }
+    .bar-label { font-weight: 600; margin-bottom: 0.25rem; }
+    .bar {
+      height: 14px;
+      background: var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .fill {
+      height: 100%;
+      width: 0;
+      background: var(--introvert);
+      border-radius: 8px;
+      animation: grow 1.4s forwards;
+    }
+    .fill.ext { background: var(--extrovert); }
+    @keyframes grow { from {width:0;} to {width: var(--target);} }
+
+    .prob-text { margin-top: 0.3rem; font-size: 0.95rem; }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.9rem 2.5rem;
+      background: var(--primary-clr);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .back-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .back-btn:active { transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Personality Prediction</h1>
+  </header>
+  <div class="container">
+    <section class="card">
+      <p class="result-label">You are most likely: <strong>{{ prediction.prediction }}</strong></p>
+
+      <div class="bar-wrapper">
+        <div class="bar-label">Introvert &nbsp; ({{ prediction.probability_introvert*100 | round(2) }}%)</div>
+        <div class="bar">
+          <div class="fill" style="--target: {{ prediction.probability_introvert*100 }}%;"></div>
+        </div>
+      </div>
+
+      <div class="bar-wrapper">
+        <div class="bar-label">Extrovert &nbsp; ({{ prediction.probability_extrovert*100 | round(2) }}%)</div>
+        <div class="bar">
+          <div class="fill ext" style="--target: {{ prediction.probability_extrovert*100 }}%;"></div>
+        </div>
+      </div>
+
+      <a href="/" class="back-btn">Try Again</a>
+    </section>
+  </div>
+</body>
+</html>

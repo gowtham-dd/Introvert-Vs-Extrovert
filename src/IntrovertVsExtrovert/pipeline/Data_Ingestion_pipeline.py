@@ -29,6 +29,7 @@ class DataIngestionTrainingPipeline:
                 print("Org Combined Shape:", org_combined.shape)
 
             except Exception as e:
+                logger.exception(e)
                 raise e
 
 

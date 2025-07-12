@@ -17,4 +17,5 @@ pyarrow==11.0.0
 notebook
 xgboost==3.0.2
 catboost==1.2.5
+dagshub
 -e .

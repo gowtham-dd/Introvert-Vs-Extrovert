@@ -52,3 +52,19 @@ class ModelTrainerConfig:
     n_splits: int
     n_repeats: int
     ensemble_weights: dict
+
+
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    x_val_path: Path
+    y_val_path: Path
+    model_dir: Path
+    ensemble_path: Path
+    ordinal_encoder_path: Path
+    label_encoder_path: Path
+    metric_file: Path
+    mlflow_uri: str
+    ensemble_weights: dict           # from params.yaml
+

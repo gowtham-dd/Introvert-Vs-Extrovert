@@ -21,7 +21,8 @@ class ModelTrainerPipeline:
             trainer.train()
 
         except Exception as e:
-            print(f"❌ Exception during model‑training stage: {e}")
+            logger.exception(e)
+            raise e
 
            
        

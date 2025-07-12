@@ -22,7 +22,8 @@ class DataTransformationTrainingPipeline:
 
                 print("✅ Data Transformation Successful.")
             except Exception as e:
-                print(f"❌ Exception during transformation: {e}")
+                logger.exception(e)
+                raise e
 
 if __name__ == "__main__":
      try:

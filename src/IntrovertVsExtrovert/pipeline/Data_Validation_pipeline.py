@@ -22,7 +22,8 @@ class DataValidationTrainingPipeline:
 
             print("✅ Data Validation and Cleaning Successful.")
         except Exception as e:
-            print(f"❌ Exception during validation: {e}")
+            logger.exception(e)
+            raise e
 
 
 
